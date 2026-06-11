@@ -11,9 +11,12 @@ ACCENT = "#0A2540"
 GOOD = "#1B9E77"
 BAD = "#D62728"
 NEUTRAL = "#757575"
+LIGHT_BG = "#F4F6F8"
+CARD_BG = "#FFFFFF"
+BORDER = "#E2E8F0"
 
 PLOTLY_LAYOUT = {
-    "font": {"family": "Segoe UI, Roboto, Helvetica, Arial, sans-serif", "color": ACCENT, "size": 13},
+    "font": {"family": "Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif", "color": ACCENT, "size": 13},
     "paper_bgcolor": "rgba(0,0,0,0)",
     "plot_bgcolor": "rgba(0,0,0,0)",
     "margin": {"l": 50, "r": 30, "t": 60, "b": 50},

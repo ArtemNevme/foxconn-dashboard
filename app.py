@@ -20,19 +20,130 @@ st.set_page_config(
 )
 
 
-def main():
-    # Header
+def inject_custom_css():
+    st.markdown("""
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        html, body, [class*="css"] {
+            font-family: 'Inter', 'Segoe UI', sans-serif !important;
+        }
+        .stTabs [data-baseweb="tab-list"] {
+            gap: 8px;
+            background-color: #F4F6F8;
+            padding: 8px 12px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+        .stTabs [data-baseweb="tab"] {
+            font-weight: 600 !important;
+            font-size: 13px !important;
+            color: #64748B !important;
+            border-radius: 8px !important;
+            padding: 8px 16px !important;
+            letter-spacing: 0.2px;
+        }
+        .stTabs [aria-selected="true"] {
+            background-color: #FFFFFF !important;
+            color: #0A2540 !important;
+            box-shadow: 0 1px 3px rgba(10,37,64,0.08) !important;
+        }
+        .css-1d391kg, .css-1lcbmhc, section[data-testid="stSidebar"] {
+            background-color: #FFFFFF !important;
+        }
+        section[data-testid="stSidebar"] .block-container {
+            padding-top: 2rem !important;
+        }
+        .stSlider > div > div > div {
+            background-color: #006847 !important;
+        }
+        .stSlider > div > div > div > div {
+            background-color: #006847 !important;
+        }
+        .stMultiSelect [data-baseweb="tag"] {
+            background-color: #F0F7F4 !important;
+            color: #006847 !important;
+            font-weight: 600 !important;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', sans-serif !important;
+            letter-spacing: -0.5px !important;
+        }
+        .stMetric {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 1px 3px rgba(10,37,64,0.06);
+        }
+        .stMetric label {
+            font-size: 11px !important;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #757575 !important;
+            font-weight: 600 !important;
+        }
+        .stMetric > div {
+            font-weight: 700 !important;
+            color: #0A2540 !important;
+        }
+        div[data-testid="stDataFrameResizable"] {
+            border-radius: 8px !important;
+            overflow: hidden !important;
+            border: 1px solid #E2E8F0 !important;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
+
+def hero_banner():
     st.markdown(f"""
-    <div style="text-align:center; margin-bottom:12px;">
-        <h1 style="color:{ACCENT}; margin-bottom:4px;">🏭 Foxconn BI Dashboard</h1>
-        <p style="color:#757575; font-size:15px; margin-top:0px;">
-            Advanced Manufacturing and Assembly · Mexico vs Brazil · Group 3 · June 2026
-        </p>
+    <div style="background: linear-gradient(135deg, #0A2540 0%, #0d3b5c 50%, #006847 100%); 
+                border-radius: 16px; 
+                padding: 32px 40px; 
+                margin-bottom: 24px; 
+                box-shadow: 0 10px 40px rgba(10,37,64,0.15);">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+            <div style="flex:1; min-width:280px;">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+                    <div style="background-color:#FFFFFF; padding:8px 14px; border-radius:8px; font-weight:800; font-size:18px; color:#0055A4; letter-spacing:1px;">
+                        FOXCONN
+                    </div>
+                    <span style="background-color:rgba(255,255,255,0.15); color:#FFFFFF; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600; letter-spacing:1px;">BI PROJECT</span>
+                </div>
+                <h1 style="color:#FFFFFF; margin:0; font-size:32px; font-weight:800; letter-spacing:-0.5px; line-height:1.2;">
+                    Mexico <span style="color:#FEDD00;">vs</span> Brazil
+                </h1>
+                <p style="color:rgba(255,255,255,0.75); margin:8px 0 0 0; font-size:15px; font-weight:400;">
+                    Advanced Manufacturing and Assembly · Expansion Analysis · Group 3 · June 2026
+                </p>
+            </div>
+            <div style="display:flex; gap:16px; align-items:center;">
+                <div style="text-align:center;">
+                    <div style="font-size:48px; line-height:1; margin-bottom:4px;">🇲🇽</div>
+                    <div style="color:#FFFFFF; font-size:12px; font-weight:600; letter-spacing:1px;">MEXICO</div>
+                </div>
+                <div style="color:rgba(255,255,255,0.3); font-size:24px; font-weight:300;">vs</div>
+                <div style="text-align:center;">
+                    <div style="font-size:48px; line-height:1; margin-bottom:4px;">🇧🇷</div>
+                    <div style="color:#FFFFFF; font-size:12px; font-weight:600; letter-spacing:1px;">BRAZIL</div>
+                </div>
+            </div>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
+
+def main():
+    inject_custom_css()
+    hero_banner()
+
     # Sidebar filters
-    st.sidebar.header("Filters")
+    st.sidebar.markdown(f"""
+    <div style="padding-bottom:16px; border-bottom:1px solid #E2E8F0; margin-bottom:16px;">
+        <h3 style="color:{ACCENT}; margin:0; font-size:18px; font-weight:700;">⚙️ Filters</h3>
+        <p style="color:#757575; font-size:12px; margin:4px 0 0 0;">Customize your analysis view</p>
+    </div>
+    """, unsafe_allow_html=True)
+
     countries = st.sidebar.multiselect(
         "Countries",
         options=["Mexico", "Brazil"],
@@ -45,14 +156,21 @@ def main():
         value=(2015, 2024),
     )
     st.sidebar.markdown("---")
-    st.sidebar.markdown("**Colors**")
+    st.sidebar.markdown("<p style='font-size:11px; color:#64748B; text-transform:uppercase; letter-spacing:1px; font-weight:600; margin-bottom:8px;'>Legend</p>", unsafe_allow_html=True)
     st.sidebar.markdown(
-        f"<span style='color:{COUNTRY_COLORS['Mexico']}'>■ Mexico</span> &nbsp; "
-        f"<span style='color:{COUNTRY_COLORS['Brazil']}'>■ Brazil</span>",
+        f"<div style='display:flex; align-items:center; gap:8px; margin-bottom:6px;'><div style='width:12px; height:12px; background-color:{COUNTRY_COLORS['Mexico']}; border-radius:3px;'></div><span style='font-size:13px; color:{ACCENT}; font-weight:500;'>🇲🇽 Mexico</span></div>"
+        f"<div style='display:flex; align-items:center; gap:8px;'><div style='width:12px; height:12px; background-color:{COUNTRY_COLORS['Brazil']}; border-radius:3px;'></div><span style='font-size:13px; color:{ACCENT}; font-weight:500;'>🇧🇷 Brazil</span></div>",
         unsafe_allow_html=True,
     )
     st.sidebar.markdown("---")
-    st.sidebar.caption("Data refreshes daily from World Bank and IMF APIs. Falls back to local snapshots if offline.")
+    st.sidebar.markdown("""
+    <div style="background-color:#F0F7F4; border-radius:8px; padding:12px; margin-top:8px;">
+        <p style="font-size:11px; color:#64748B; margin:0; line-height:1.4;">
+            📡 Data refreshes daily from World Bank and IMF APIs.<br>
+            Fallback to local snapshots if offline.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     if not countries:
         st.warning("Please select at least one country.")
