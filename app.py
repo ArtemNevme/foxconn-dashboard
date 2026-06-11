@@ -208,16 +208,16 @@ def main():
 
     # Tabs
     tabs = st.tabs([
-        "📊 Macro",
-        "🛡️ Corruption",
-        "⚖️ Governance",
-        "🏭 Manufacturing",
-        "🔋 EV & Semi",
-        "🦊 Foxconn",
-        "📈 Forecast",
-        "🗺️ Geo Map",
-        "🏆 Recommendation",
-        "📚 Sources",
+        "Macro Overview",
+        "Corruption & Freedom",
+        "Governance & Credit",
+        "Manufacturing",
+        "EV & Semiconductor",
+        "Foxconn Investment",
+        "Forecast",
+        "Geo Map",
+        "Recommendation",
+        "Sources",
     ])
 
     with tabs[0]:
