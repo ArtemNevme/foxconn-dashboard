@@ -96,17 +96,15 @@ def inject_custom_css():
 
 def hero_banner():
     st.markdown(f"""
-    <div style="background: linear-gradient(135deg, #0A2540 0%, #0d3b5c 50%, #006847 100%); 
-                border-radius: 16px; 
-                padding: 32px 40px; 
-                margin-bottom: 24px; 
+    <div style="background: linear-gradient(135deg, #0A2540 0%, #0d3b5c 50%, #006847 100%);
+                border-radius: 16px;
+                padding: 32px 40px;
+                margin-bottom: 24px;
                 box-shadow: 0 10px 40px rgba(10,37,64,0.15);">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
             <div style="flex:1; min-width:280px;">
                 <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-                    <div style="background-color:#FFFFFF; padding:8px 14px; border-radius:8px; font-weight:800; font-size:18px; color:#0055A4; letter-spacing:1px;">
-                        FOXCONN
-                    </div>
+                    <img src="app/static/assets/logo.png" onerror="this.src='assets/logo.png'" style="height:40px; background:#FFFFFF; padding:6px 12px; border-radius:8px;">
                     <span style="background-color:rgba(255,255,255,0.15); color:#FFFFFF; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600; letter-spacing:1px;">BI PROJECT</span>
                 </div>
                 <h1 style="color:#FFFFFF; margin:0; font-size:32px; font-weight:800; letter-spacing:-0.5px; line-height:1.2;">
@@ -118,12 +116,12 @@ def hero_banner():
             </div>
             <div style="display:flex; gap:16px; align-items:center;">
                 <div style="text-align:center;">
-                    <div style="font-size:48px; line-height:1; margin-bottom:4px;">🇲🇽</div>
+                    <img src="app/static/assets/flags/mx.png" onerror="this.src='assets/flags/mx.png'" style="width:64px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); margin-bottom:4px;">
                     <div style="color:#FFFFFF; font-size:12px; font-weight:600; letter-spacing:1px;">MEXICO</div>
                 </div>
                 <div style="color:rgba(255,255,255,0.3); font-size:24px; font-weight:300;">vs</div>
                 <div style="text-align:center;">
-                    <div style="font-size:48px; line-height:1; margin-bottom:4px;">🇧🇷</div>
+                    <img src="app/static/assets/flags/br.png" onerror="this.src='assets/flags/br.png'" style="width:64px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); margin-bottom:4px;">
                     <div style="color:#FFFFFF; font-size:12px; font-weight:600; letter-spacing:1px;">BRAZIL</div>
                 </div>
             </div>
@@ -158,8 +156,12 @@ def main():
     st.sidebar.markdown("---")
     st.sidebar.markdown("<p style='font-size:11px; color:#64748B; text-transform:uppercase; letter-spacing:1px; font-weight:600; margin-bottom:8px;'>Legend</p>", unsafe_allow_html=True)
     st.sidebar.markdown(
-        f"<div style='display:flex; align-items:center; gap:8px; margin-bottom:6px;'><div style='width:12px; height:12px; background-color:{COUNTRY_COLORS['Mexico']}; border-radius:3px;'></div><span style='font-size:13px; color:{ACCENT}; font-weight:500;'>🇲🇽 Mexico</span></div>"
-        f"<div style='display:flex; align-items:center; gap:8px;'><div style='width:12px; height:12px; background-color:{COUNTRY_COLORS['Brazil']}; border-radius:3px;'></div><span style='font-size:13px; color:{ACCENT}; font-weight:500;'>🇧🇷 Brazil</span></div>",
+        f"<div style='display:flex; align-items:center; gap:8px; margin-bottom:6px;'>"
+        f"<img src='assets/flags/mx.png' style='width:18px; border-radius:2px;'>"
+        f"<span style='font-size:13px; color:{ACCENT}; font-weight:500;'>Mexico</span></div>"
+        f"<div style='display:flex; align-items:center; gap:8px;'>"
+        f"<img src='assets/flags/br.png' style='width:18px; border-radius:2px;'>"
+        f"<span style='font-size:13px; color:{ACCENT}; font-weight:500;'>Brazil</span></div>",
         unsafe_allow_html=True,
     )
     st.sidebar.markdown("---")
