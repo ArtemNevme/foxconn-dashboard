@@ -182,14 +182,7 @@ def main():
     filters = {"countries": countries, "year_range": year_range}
 
     # Load data
-    with st.spinner(""):
-        st.markdown("""
-        <div style="text-align:center; padding:40px 0;">
-            <div style="display:inline-block; width:40px; height:40px; border:3px solid #E2E8F0; border-top-color:#006847; border-radius:50%; animation:spin 1s linear infinite;"></div>
-            <p style="color:#64748B; font-size:14px; margin-top:12px;">Loading data sources...</p>
-        </div>
-        <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
-        """, unsafe_allow_html=True)
+    with st.spinner("Loading data sources..."):
         macro_df, macro_source = get_macro()
         forecast_df, forecast_source = get_forecast()
         curated = load_all_curated()
