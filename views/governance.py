@@ -4,7 +4,7 @@ views/governance.py
 import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
-from lib.theme import COUNTRY_COLORS, apply_plotly_theme, GOOD, BAD
+from lib.theme import COUNTRY_COLORS, apply_plotly_theme, GOOD, BAD, BORDER
 from lib.components import section_header, kpi_card, insight_box, source_badge, freshness_caption, country_filter_apply
 
 
