@@ -1,0 +1,3 @@
+Country,Auto_Production,Auto_Exports_USD_Billions,Auto_Industry_Pct_GDP,OEM_Plants,Tier1_Suppliers,Auto_Employment,Capacity_Utilization_Pct,EV_Sales,EV_Market_Share_Pct,EV_Production,EV_Growth_Rate_Pct,Charging_Stations,Semiconductor_Exports_Billions,Electronics_Mfg_Billions,STEM_Graduates_Annual,Foxconn_Plants,Labor_Cost_Hourly_USD
+Mexico,4200000.0,177.9,4.5,37.0,600.0,1800000.0,97.4,124000.0,8.3,220000.0,180.0,2500.0,12.5,107.0,150000.0,3.0,4.5
+Brazil,2300000.0,15.2,4.2,25.0,200.0,450000.0,75.0,177000.0,6.5,50000.0,90.0,3800.0,1.2,15.0,80000.0,0.0,6.2

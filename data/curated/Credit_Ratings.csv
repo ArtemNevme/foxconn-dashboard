@@ -1,0 +1,9 @@
+Country,Rating_Agency,Rating,Outlook,Grade_Category
+Mexico,S&P Global,BBB,Stable,Investment Grade
+Mexico,Moody's,Baa2,Stable (Negative),Investment Grade
+Mexico,Fitch,BBB-,Stable,Investment Grade
+Mexico,DBRS Morningstar,BBB,Stable,Investment Grade
+Brazil,S&P Global,BB,Stable,Speculative (Junk)
+Brazil,Moody's,Ba1,Stable (Positive),Speculative (Junk)
+Brazil,Fitch,BB,Stable,Speculative (Junk)
+Brazil,DBRS Morningstar,BB,Stable,Speculative (Junk)
