@@ -54,11 +54,17 @@ def inject_custom_css():
         section[data-testid="stSidebar"] .block-container {
             padding-top: 2rem !important;
         }
-        .stSlider > div > div > div {
+        .stSlider [data-baseweb="slider"] [data-testid="stThumbValue"] {
             background-color: #006847 !important;
+            color: #FFFFFF !important;
+            border-radius: 4px !important;
+            padding: 2px 6px !important;
+            font-size: 12px !important;
+            font-weight: 600 !important;
         }
-        .stSlider > div > div > div > div {
+        .stSlider [role="slider"] {
             background-color: #006847 !important;
+            border-color: #006847 !important;
         }
         .stMultiSelect [data-baseweb="tag"] {
             background-color: #F0F7F4 !important;
