@@ -9,6 +9,7 @@ from datetime import datetime
 from lib.api_client import get_macro, get_forecast
 from lib.data_loader import load_all_curated
 from lib.theme import ACCENT, COUNTRY_COLORS
+from lib.assets import LOGO_PNG, FLAG_MX_PNG, FLAG_BR_PNG
 
 from views import overview, governance, manufacturing, ev_semi, foxconn, forecast, geomap, recommendation, sources
 
@@ -104,7 +105,7 @@ def hero_banner():
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
             <div style="flex:1; min-width:280px;">
                 <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-                    <img src="app/static/assets/logo.png" onerror="this.src='assets/logo.png'" style="height:40px; background:#FFFFFF; padding:6px 12px; border-radius:8px;">
+                    <img src="data:image/png;base64,{LOGO_PNG}" style="height:40px; background:#FFFFFF; padding:6px 12px; border-radius:8px;">
                     <span style="background-color:rgba(255,255,255,0.15); color:#FFFFFF; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600; letter-spacing:1px;">BI PROJECT</span>
                 </div>
                 <h1 style="color:#FFFFFF; margin:0; font-size:32px; font-weight:800; letter-spacing:-0.5px; line-height:1.2;">
@@ -116,12 +117,12 @@ def hero_banner():
             </div>
             <div style="display:flex; gap:16px; align-items:center;">
                 <div style="text-align:center;">
-                    <img src="app/static/assets/flags/mx.png" onerror="this.src='assets/flags/mx.png'" style="width:64px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); margin-bottom:4px;">
+                    <img src="data:image/png;base64,{FLAG_MX_PNG}" style="width:64px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); margin-bottom:4px;">
                     <div style="color:#FFFFFF; font-size:12px; font-weight:600; letter-spacing:1px;">MEXICO</div>
                 </div>
                 <div style="color:rgba(255,255,255,0.3); font-size:24px; font-weight:300;">vs</div>
                 <div style="text-align:center;">
-                    <img src="app/static/assets/flags/br.png" onerror="this.src='assets/flags/br.png'" style="width:64px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); margin-bottom:4px;">
+                    <img src="data:image/png;base64,{FLAG_BR_PNG}" style="width:64px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); margin-bottom:4px;">
                     <div style="color:#FFFFFF; font-size:12px; font-weight:600; letter-spacing:1px;">BRAZIL</div>
                 </div>
             </div>
@@ -157,10 +158,10 @@ def main():
     st.sidebar.markdown("<p style='font-size:11px; color:#64748B; text-transform:uppercase; letter-spacing:1px; font-weight:600; margin-bottom:8px;'>Legend</p>", unsafe_allow_html=True)
     st.sidebar.markdown(
         f"<div style='display:flex; align-items:center; gap:8px; margin-bottom:6px;'>"
-        f"<img src='assets/flags/mx.png' style='width:18px; border-radius:2px;'>"
+        f"<img src='data:image/png;base64,{FLAG_MX_PNG}' style='width:18px; border-radius:2px;'>"
         f"<span style='font-size:13px; color:{ACCENT}; font-weight:500;'>Mexico</span></div>"
         f"<div style='display:flex; align-items:center; gap:8px;'>"
-        f"<img src='assets/flags/br.png' style='width:18px; border-radius:2px;'>"
+        f"<img src='data:image/png;base64,{FLAG_BR_PNG}' style='width:18px; border-radius:2px;'>"
         f"<span style='font-size:13px; color:{ACCENT}; font-weight:500;'>Brazil</span></div>",
         unsafe_allow_html=True,
     )
