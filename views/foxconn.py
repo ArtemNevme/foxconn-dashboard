@@ -36,12 +36,13 @@ def render(filters, data):
                      size="BubbleSize", color="Country",
                      color_discrete_map=COUNTRY_COLORS,
                      hover_name="Country",
-                     hover_data={"BubbleSize": False, "Foxconn_Plants": True},
+                     hover_data={"BubbleSize": False, "Foxconn_Plants": True, "Labor_Cost_Hourly_USD": ":.2f", "STEM_Graduates_Annual": ":,.0f"},
                      size_max=60,
                      title="Foxconn Context: Labor Cost vs STEM Pipeline",
                      labels={"Labor_Cost_Hourly_USD": "Labor Cost (USD/hr)",
                              "STEM_Graduates_Annual": "STEM Graduates / Year"})
     apply_plotly_theme(fig)
+    fig.update_traces(hovertemplate="<b>%{hovertext}</b><br>Labor Cost: $%{x:.2f}/hr<br>STEM Grads: %{y:,.0f}/yr<br>Foxconn Plants: %{customdata[0]}<extra></extra>")
     st.plotly_chart(fig, use_container_width=True, key="foxconn_bubble")
 
     insight_box("Mexico offers 27% lower labor costs and 88% more STEM graduates annually, with 3 existing Foxconn facilities versus 0 in Brazil. This existing footprint accelerates time-to-production and de-risks supply-chain ramp-up.")

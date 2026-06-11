@@ -28,19 +28,21 @@ def render(filters, data):
         with (c1 if i % 2 == 0 else c2):
             fig = px.bar(df, x="Country", y=col, color="Country",
                          color_discrete_map=COUNTRY_COLORS,
-                         title=title, text=col)
+                         title=title, text=col,
+                         hover_data={col: ":.1f"})
             apply_plotly_theme(fig)
-            fig.update_traces(textposition="outside")
             fig.update_layout(showlegend=False)
+            fig.update_traces(hovertemplate="<b>%{x}</b><br>%{fullData.name}: %{y:,.1f}<extra></extra>")
             st.plotly_chart(fig, use_container_width=True, key=f"ev_{i}")
 
     # 100% stacked for EV market share
     fig = px.bar(df, x="Country", y="EV_Market_Share_Pct", color="Country",
                  color_discrete_map=COUNTRY_COLORS,
-                 title="EV Market Share (% of total auto sales)", text="EV_Market_Share_Pct")
+                 title="EV Market Share (% of total auto sales)", text="EV_Market_Share_Pct",
+                 hover_data={"EV_Market_Share_Pct": ":.1f"})
     apply_plotly_theme(fig)
-    fig.update_traces(textposition="outside")
     fig.update_layout(showlegend=False)
+    fig.update_traces(hovertemplate="<b>%{x}</b><br>EV Share: %{y:.1f}%<extra></extra>")
     st.plotly_chart(fig, use_container_width=True, key="ev_share")
 
     st.markdown("---")
@@ -48,19 +50,21 @@ def render(filters, data):
     with c3:
         fig = px.bar(df, x="Country", y="Semiconductor_Exports_Billions", color="Country",
                      color_discrete_map=COUNTRY_COLORS,
-                     title="Semiconductor Exports (USD Bn)", text="Semiconductor_Exports_Billions")
+                     title="Semiconductor Exports (USD Bn)", text="Semiconductor_Exports_Billions",
+                     hover_data={"Semiconductor_Exports_Billions": ":.1f"})
         apply_plotly_theme(fig)
-        fig.update_traces(textposition="outside")
         fig.update_layout(showlegend=False)
+        fig.update_traces(hovertemplate="<b>%{x}</b><br>Semiconductor Exports: $%{y:.1f} Bn<extra></extra>")
         st.plotly_chart(fig, use_container_width=True, key="semi_exp")
 
     with c4:
         fig = px.bar(df, x="Country", y="Electronics_Mfg_Billions", color="Country",
                      color_discrete_map=COUNTRY_COLORS,
-                     title="Electronics Manufacturing (USD Bn)", text="Electronics_Mfg_Billions")
+                     title="Electronics Manufacturing (USD Bn)", text="Electronics_Mfg_Billions",
+                     hover_data={"Electronics_Mfg_Billions": ":.1f"})
         apply_plotly_theme(fig)
-        fig.update_traces(textposition="outside")
         fig.update_layout(showlegend=False)
+        fig.update_traces(hovertemplate="<b>%{x}</b><br>Electronics Mfg: $%{y:.1f} Bn<extra></extra>")
         st.plotly_chart(fig, use_container_width=True, key="elec_mfg")
 
     insight_box("Brazil leads in absolute EV sales and charging infrastructure, but Mexico is building a larger EV production and export base (220k vs 50k units) with a far deeper semiconductor and electronics manufacturing ecosystem (USD 107 Bn vs 15 Bn).")

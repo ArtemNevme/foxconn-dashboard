@@ -55,9 +55,11 @@ def render(filters, data):
     for i, (col, title, container) in enumerate(metrics_ts):
         with container:
             fig = px.line(df, x="Year", y=col, color="Country", color_discrete_map=COUNTRY_COLORS,
-                          markers=True, title=title)
+                          markers=True, title=title,
+                          hover_data={col: ":.2f"})
             apply_plotly_theme(fig)
-            fig.update_layout(legend_title_text="")
+            fig.update_layout(legend_title_text="", hovermode="x unified")
+            fig.update_traces(hovertemplate="<b>%{fullData.name}</b><br>Year: %{x}<br>Value: %{y:.2f}<extra></extra>")
             st.plotly_chart(fig, use_container_width=True, key=f"macro_ts_{i}")
 
     # Risk vs Return scatter
@@ -70,9 +72,11 @@ def render(filters, data):
                          color_discrete_map=COUNTRY_COLORS,
                          title="Risk vs Return (avg 2015–2024)",
                          labels={"Inflation_CPI_Pct": "Avg Inflation (risk)", "GDP_Growth_Pct": "Avg GDP Growth (return)"},
-                         size=[40] * len(agg))
+                         size=[40] * len(agg),
+                         hover_data={"Inflation_CPI_Pct": ":.2f", "GDP_Growth_Pct": ":.2f"})
         apply_plotly_theme(fig)
-        fig.update_traces(marker=dict(opacity=0.85, line=dict(width=1, color=ACCENT)))
+        fig.update_traces(marker=dict(opacity=0.9, line=dict(width=2, color="white")),
+                          hovertemplate="<b>%{fullData.name}</b><br>Avg Inflation: %{x:.2f}%<br>Avg GDP Growth: %{y:.2f}%<extra></extra>")
         st.plotly_chart(fig, use_container_width=True, key="macro_scatter")
 
     st.markdown("---")
@@ -82,16 +86,20 @@ def render(filters, data):
     with c1:
         fig = px.bar(df, x="Year", y="GDP_Current_USD", color="Country",
                      color_discrete_map=COUNTRY_COLORS, barmode="group",
-                     title="GDP Current USD (Billions)", labels={"GDP_Current_USD": "USD Bn"})
+                     title="GDP Current USD (Billions)", labels={"GDP_Current_USD": "USD Bn"},
+                     hover_data={"GDP_Current_USD": ":.1f"})
         apply_plotly_theme(fig)
+        fig.update_traces(hovertemplate="<b>%{fullData.name}</b><br>Year: %{x}<br>GDP: $%{y:.1f} Bn<extra></extra>")
         st.plotly_chart(fig, use_container_width=True, key="macro_gdp_usd")
 
     with c2:
         fig = px.bar(df, x="Year", y="Manufacturing_Pct_GDP", color="Country",
                      color_discrete_map=COUNTRY_COLORS, barmode="group",
                      title="Manufacturing % of GDP",
-                     labels={"Manufacturing_Pct_GDP": "% of GDP"})
+                     labels={"Manufacturing_Pct_GDP": "% of GDP"},
+                     hover_data={"Manufacturing_Pct_GDP": ":.1f"})
         apply_plotly_theme(fig)
+        fig.update_traces(hovertemplate="<b>%{fullData.name}</b><br>Year: %{x}<br>Manufacturing: %{y:.1f}%<extra></extra>")
         st.plotly_chart(fig, use_container_width=True, key="macro_mfg_pct")
 
     insight_box(

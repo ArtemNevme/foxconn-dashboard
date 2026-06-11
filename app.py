@@ -182,7 +182,14 @@ def main():
     filters = {"countries": countries, "year_range": year_range}
 
     # Load data
-    with st.spinner("Loading data..."):
+    with st.spinner(""):
+        st.markdown("""
+        <div style="text-align:center; padding:40px 0;">
+            <div style="display:inline-block; width:40px; height:40px; border:3px solid #E2E8F0; border-top-color:#006847; border-radius:50%; animation:spin 1s linear infinite;"></div>
+            <p style="color:#64748B; font-size:14px; margin-top:12px;">Loading data sources...</p>
+        </div>
+        <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+        """, unsafe_allow_html=True)
         macro_df, macro_source = get_macro()
         forecast_df, forecast_source = get_forecast()
         curated = load_all_curated()
@@ -201,16 +208,16 @@ def main():
 
     # Tabs
     tabs = st.tabs([
-        "1. Macro Overview",
-        "2. Corruption and Freedom",
-        "3. Governance and Credit",
-        "4. Manufacturing",
-        "5. EV and Semiconductor",
-        "6. Foxconn Investment",
-        "7. Forecast",
-        "8. Geo Map",
-        "9. Recommendation",
-        "10. Sources",
+        "📊 Macro",
+        "🛡️ Corruption",
+        "⚖️ Governance",
+        "🏭 Manufacturing",
+        "🔋 EV & Semi",
+        "🦊 Foxconn",
+        "📈 Forecast",
+        "🗺️ Geo Map",
+        "🏆 Recommendation",
+        "📚 Sources",
     ])
 
     with tabs[0]:

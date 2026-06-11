@@ -36,10 +36,11 @@ def render(filters, data):
     })
     fig = px.bar(score_df, x="Country", y="Score", color="Country",
                  color_discrete_map=COUNTRY_COLORS,
-                 title="Composite Index Score (0-100)", text="Score")
+                 title="Composite Index Score (0-100)", text="Score",
+                 hover_data={"Score": ":.1f"})
     apply_plotly_theme(fig)
-    fig.update_traces(textposition="outside")
     fig.update_layout(showlegend=False)
+    fig.update_traces(hovertemplate="<b>%{x}</b><br>Composite Score: %{y:.1f}/100<extra></extra>")
     st.plotly_chart(fig, use_container_width=True, key="composite_bar")
 
     with st.expander("Show methodology and weights"):
@@ -72,7 +73,7 @@ def render(filters, data):
 
     st.markdown("---")
     st.markdown(f"""
-    <div style="background-color:#F0F7F4; border-left:4px solid {GOOD}; padding:16px; border-radius:4px;">
+    <div style="background: linear-gradient(135deg, #F0F7F4 0%, #FFFFFF 100%); border-left:4px solid {GOOD}; padding:20px; border-radius:12px; box-shadow: 0 2px 8px rgba(27,158,119,0.08);">
         <h4 style="color:{ACCENT}; margin-top:0;">RECOMMENDED: Mexico</h4>
         <ul style="margin-bottom:8px;">
             <li><strong>Manufacturing intensity:</strong> ~20% of GDP vs ~12% in Brazil</li>

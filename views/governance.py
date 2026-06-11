@@ -23,25 +23,32 @@ def render_corruption(filters, data):
     with col1:
         fig = px.line(cpi_f, x="Year", y="CPI_Score", color="Country",
                       color_discrete_map=COUNTRY_COLORS, markers=True,
-                      title="CPI Score (higher = less corrupt)")
+                      title="CPI Score (higher = less corrupt)",
+                      hover_data={"CPI_Score": ":.0f"})
         apply_plotly_theme(fig)
+        fig.update_layout(hovermode="x unified")
+        fig.update_traces(hovertemplate="<b>%{fullData.name}</b><br>Year: %{x}<br>CPI Score: %{y:.0f}<extra></extra>")
         st.plotly_chart(fig, use_container_width=True, key="cpi_ts")
 
     with col2:
         fig = px.bar(cpi_f, x="Year", y="CPI_Rank", color="Country",
                      color_discrete_map=COUNTRY_COLORS, barmode="group",
-                     title="CPI Rank (lower is better)")
+                     title="CPI Rank (lower is better)",
+                     hover_data={"CPI_Rank": ":.0f"})
         apply_plotly_theme(fig)
-        fig.update_layout(yaxis_autorange="reversed")
+        fig.update_layout(yaxis_autorange="reversed", showlegend=False)
+        fig.update_traces(hovertemplate="<b>%{fullData.name}</b><br>Year: %{x}<br>Rank: %{y:.0f}<extra></extra>")
         st.plotly_chart(fig, use_container_width=True, key="cpi_rank")
 
     ef_f = country_filter_apply(ef, countries)
     fig = px.bar(ef_f, x="Year", y="Economic_Freedom_Score", color="Country",
                  color_discrete_map=COUNTRY_COLORS, barmode="group",
                  title="Economic Freedom Score (Heritage)",
-                 text="Economic_Freedom_Score")
+                 text="Economic_Freedom_Score",
+                 hover_data={"Economic_Freedom_Score": ":.1f"})
     apply_plotly_theme(fig)
-    fig.update_traces(textposition="outside")
+    fig.update_layout(showlegend=False)
+    fig.update_traces(hovertemplate="<b>%{fullData.name}</b><br>Year: %{x}<br>Score: %{y:.1f}<extra></extra>")
     st.plotly_chart(fig, use_container_width=True, key="ef_bar")
 
     insight_box("Brazil scores slightly higher on CPI (less perceived corruption), while Mexico leads on Economic Freedom, reflecting more open trade and investment regimes critical for manufacturing FDI.")
@@ -77,12 +84,13 @@ def render_governance(filters, data):
                 line_color=COUNTRY_COLORS.get(country),
             ))
         fig.update_layout(
-            polar=dict(radialaxis=dict(visible=True, range=[0, 60])),
+            polar=dict(radialaxis=dict(visible=True, range=[0, 60], tickfont=dict(size=10))),
             title="World Governance Indicators 2023 (percentile)",
             legend=dict(orientation="h", yanchor="bottom", y=-0.2, xanchor="center", x=0.5),
             margin=dict(l=60, r=60, t=80, b=60),
             paper_bgcolor="rgba(0,0,0,0)",
-            font=dict(family="Segoe UI, sans-serif", color="#0A2540"),
+            font=dict(family="Inter, sans-serif", color="#0A2540"),
+            hoverlabel=dict(bgcolor="white", bordercolor=BORDER),
         )
         st.plotly_chart(fig, use_container_width=True, key="wgi_radar")
 

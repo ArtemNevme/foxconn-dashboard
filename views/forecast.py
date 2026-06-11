@@ -34,7 +34,8 @@ def render(filters, data):
         fig.add_trace(go.Scatter(
             x=actual["Year"], y=actual[metric],
             mode="lines+markers", name=f"{country} Actual",
-            line=dict(color=color, width=3), marker=dict(size=8)
+            line=dict(color=color, width=3), marker=dict(size=8),
+            hovertemplate=f"<b>{country} Actual</b><br>Year: %{{x}}<br>Value: %{{y:.2f}}%<extra></extra>"
         ))
         if not forecast.empty:
             # Connect last actual to first forecast for visual continuity

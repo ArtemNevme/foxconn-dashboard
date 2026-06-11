@@ -31,10 +31,11 @@ def render(filters, data):
         with cols[i % 2]:
             fig = px.bar(df, x="Country", y=col, color="Country",
                          color_discrete_map=COUNTRY_COLORS,
-                         title=title, text=col)
+                         title=title, text=col,
+                         hover_data={col: ":.1f"})
             apply_plotly_theme(fig)
-            fig.update_traces(textposition="outside")
             fig.update_layout(showlegend=False)
+            fig.update_traces(hovertemplate="<b>%{x}</b><br>%{fullData.name}: %{y:,.1f}<extra></extra>")
             st.plotly_chart(fig, use_container_width=True, key=f"mfg_{i}")
 
     insight_box("Mexico dominates auto production volume, export value, and supply-chain density (600 Tier-1 suppliers vs 200), with nearshoring driving 97% capacity utilization.")

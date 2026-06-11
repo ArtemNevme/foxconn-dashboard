@@ -35,11 +35,18 @@ def render(filters, data):
                           key="map_metric")
 
     # Full world choropleth with focus on Americas
+    hover_map = {
+        "Composite_Score": ["Country", "Composite_Score"],
+        "GDP_Growth_Pct": ["Country", "GDP_Growth_Pct"],
+        "Manufacturing_Pct_GDP": ["Country", "Manufacturing_Pct_GDP"],
+        "GDP_Current_USD": ["Country", "GDP_Current_USD"],
+    }
     fig = px.choropleth(
         latest,
         locations="ISO",
         color=metric,
         hover_name="Country",
+        hover_data=hover_map.get(metric, ["Country"]),
         color_continuous_scale="RdYlGn",
         range_color=(latest[metric].min() * 0.9, latest[metric].max() * 1.05),
         labels={metric: metric.replace("_", " ")},

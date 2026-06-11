@@ -19,17 +19,45 @@ PLOTLY_LAYOUT = {
     "font": {"family": "Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif", "color": ACCENT, "size": 13},
     "paper_bgcolor": "rgba(0,0,0,0)",
     "plot_bgcolor": "rgba(0,0,0,0)",
-    "margin": {"l": 50, "r": 30, "t": 60, "b": 50},
-    "legend": {"orientation": "h", "yanchor": "bottom", "y": -0.22, "xanchor": "center", "x": 0.5},
-    "hoverlabel": {"bgcolor": "#FFFFFF", "bordercolor": ACCENT, "font_size": 12, "font_family": "sans-serif"},
-    "xaxis": {"showgrid": True, "gridcolor": "#EAEAEA", "linecolor": "#CCCCCC", "tickfont": {"size": 12}},
-    "yaxis": {"showgrid": True, "gridcolor": "#EAEAEA", "linecolor": "#CCCCCC", "tickfont": {"size": 12}},
+    "margin": {"l": 45, "r": 25, "t": 50, "b": 45},
+    "legend": {"orientation": "h", "yanchor": "bottom", "y": -0.18, "xanchor": "center", "x": 0.5, "bgcolor": "rgba(255,255,255,0.8)"},
+    "hoverlabel": {
+        "bgcolor": "#FFFFFF",
+        "bordercolor": BORDER,
+        "font_size": 13,
+        "font_family": "Inter, sans-serif",
+        "borderwidth": 1,
+    },
+    "xaxis": {
+        "showgrid": True,
+        "gridcolor": "#F0F0F0",
+        "linecolor": "#E2E8F0",
+        "tickfont": {"size": 12, "color": NEUTRAL},
+        "title": {"font": {"size": 12, "color": NEUTRAL}},
+    },
+    "yaxis": {
+        "showgrid": True,
+        "gridcolor": "#F0F0F0",
+        "linecolor": "#E2E8F0",
+        "tickfont": {"size": 12, "color": NEUTRAL},
+        "title": {"font": {"size": 12, "color": NEUTRAL}},
+    },
 }
 
 
 def apply_plotly_theme(fig):
-    """Apply unified layout to any Plotly figure."""
+    """Apply unified layout + animation defaults to any Plotly figure."""
     fig.update_layout(**PLOTLY_LAYOUT)
+    fig.update_traces(
+        selector=dict(type="bar"),
+        textposition="outside",
+        textfont=dict(size=11, color=ACCENT),
+    )
+    fig.update_traces(
+        selector=dict(type="scatter"),
+        line=dict(width=3),
+        marker=dict(size=8, line=dict(width=1, color="white")),
+    )
     return fig
 
 
