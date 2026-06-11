@@ -24,9 +24,7 @@ PLOTLY_LAYOUT = {
     "hoverlabel": {
         "bgcolor": "#FFFFFF",
         "bordercolor": BORDER,
-        "font_size": 13,
-        "font_family": "Inter, sans-serif",
-        "borderwidth": 1,
+        "font": {"size": 13, "family": "Inter, sans-serif"},
     },
 }
 
