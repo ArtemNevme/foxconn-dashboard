@@ -16,6 +16,7 @@ def render(filters, data):
     if df.empty:
         st.warning("No data available.")
         return
+    df["BubbleSize"] = df["Foxconn_Plants"] + 1
 
     mx = df[df["Country"] == "Mexico"]
     br = df[df["Country"] == "Brazil"]
@@ -32,9 +33,10 @@ def render(filters, data):
     kpi_card("STEM Graduates / Year", mx_stem, br_stem, "{:,.0f}", higher_is_better=True)
 
     fig = px.scatter(df, x="Labor_Cost_Hourly_USD", y="STEM_Graduates_Annual",
-                     size="Foxconn_Plants", color="Country",
+                     size="BubbleSize", color="Country",
                      color_discrete_map=COUNTRY_COLORS,
                      hover_name="Country",
+                     hover_data={"BubbleSize": False, "Foxconn_Plants": True},
                      size_max=60,
                      title="Foxconn Context: Labor Cost vs STEM Pipeline",
                      labels={"Labor_Cost_Hourly_USD": "Labor Cost (USD/hr)",

@@ -2,6 +2,7 @@
 lib/components.py — Reusable Streamlit components.
 """
 
+from datetime import date
 import streamlit as st
 from lib.theme import COUNTRY_COLORS, ACCENT, GOOD, BAD, NEUTRAL, CARD_BG, BORDER
 
@@ -102,14 +103,15 @@ def source_badge(kind: str, label: str):
     """, unsafe_allow_html=True)
 
 
-def freshness_caption(source_flag: str, date_str: str):
+def freshness_caption(source_flag: str, date_str: str | None = None):
     """Render a freshness caption below a chart/section."""
+    today = date_str or date.today().isoformat()
     if source_flag == "LIVE":
-        st.caption(f"🟢 Обновлено из World Bank API · {date_str}")
+        st.caption(f"🟢 Updated live from World Bank / IMF API · {today}")
     elif source_flag == "SNAPSHOT":
-        st.caption(f"🟡 Резервный snapshot · {date_str}")
+        st.caption(f"🟡 Local snapshot (API unavailable) · {today}")
     else:
-        st.caption(f"📄 Curated данные · {date_str}")
+        st.caption(f"📄 Curated data · {today}")
 
 
 def country_filter_apply(df, countries):

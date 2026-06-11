@@ -24,8 +24,7 @@ def render(filters, data):
     df = df[(df["Year"] >= year_range[0]) & (df["Year"] <= year_range[1])]
 
     # Latest year for KPIs
-    latest = df.loc[df["Year"].idxmax()]
-    # Get latest per country
+    latest_year = int(df["Year"].max())
     latest_per_country = df.sort_values("Year").groupby("Country").last().reset_index()
     mx_latest = latest_per_country[latest_per_country["Country"] == "Mexico"]
     br_latest = latest_per_country[latest_per_country["Country"] == "Brazil"]
@@ -39,9 +38,9 @@ def render(filters, data):
     mx_mfg = mx_latest["Manufacturing_Pct_GDP"].values[0] if not mx_latest.empty else None
     br_mfg = br_latest["Manufacturing_Pct_GDP"].values[0] if not br_latest.empty else None
 
-    kpi_card("GDP Growth 2024 (%)", mx_gdp, br_gdp, "{:.2f}", higher_is_better=True)
-    kpi_card("Inflation CPI 2024 (%)", mx_inf, br_inf, "{:.2f}", higher_is_better=False)
-    kpi_card("Unemployment 2024 (%)", mx_unemp, br_unemp, "{:.2f}", higher_is_better=False)
+    kpi_card(f"GDP Growth {latest_year} (%)", mx_gdp, br_gdp, "{:.2f}", higher_is_better=True)
+    kpi_card(f"Inflation CPI {latest_year} (%)", mx_inf, br_inf, "{:.2f}", higher_is_better=False)
+    kpi_card(f"Unemployment {latest_year} (%)", mx_unemp, br_unemp, "{:.2f}", higher_is_better=False)
     kpi_card("Manufacturing % GDP", mx_mfg, br_mfg, "{:.2f}", higher_is_better=True)
 
     st.markdown("---")
@@ -71,7 +70,7 @@ def render(filters, data):
                          color_discrete_map=COUNTRY_COLORS,
                          title="Risk vs Return (avg 2015–2024)",
                          labels={"Inflation_CPI_Pct": "Avg Inflation (risk)", "GDP_Growth_Pct": "Avg GDP Growth (return)"},
-                         size=[40, 40])
+                         size=[40] * len(agg))
         apply_plotly_theme(fig)
         fig.update_traces(marker=dict(opacity=0.85, line=dict(width=1, color=ACCENT)))
         st.plotly_chart(fig, use_container_width=True, key="macro_scatter")
@@ -101,4 +100,4 @@ def render(filters, data):
         "For Advanced Manufacturing & Assembly, Mexico's industrial base offers stronger nearshoring fundamentals."
     )
     source_badge(macro_source, "World Bank WDI")
-    freshness_caption(macro_source, "2024")
+    freshness_caption(macro_source)

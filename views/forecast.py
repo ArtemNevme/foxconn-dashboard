@@ -67,4 +67,4 @@ def render(filters, data):
 
     insight_box("Mexico is forecast to recover from 0.6% to 1.6% GDP growth by 2026, while Brazil is expected to slow from 2.3% to 1.9%. Inflation moderation and stable unemployment favor a medium-term manufacturing capex cycle in Mexico.")
     source_badge(source, "IMF WEO April 2025")
-    freshness_caption(source, "2025")
+    freshness_caption(source)

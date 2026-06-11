@@ -81,8 +81,8 @@ def render(filters, data):
             <li><strong>Credit quality:</strong> Investment Grade across all four agencies</li>
             <li><strong>Trade integration:</strong> USMCA and deep Tier-1 supplier ecosystem (600 vs 200)</li>
         </ul>
-        <p style="margin-bottom:4px;"><strong>Primary Risk:</strong> Security and rule-of-law concerns in certain regions.</p>
-        <p style="margin-bottom:0;"><strong>Mitigation:</strong> Site selection in industrial corridors (Queretaro, Guanajuato) with established security protocols and state-level incentives.</p>
+        <p style="margin-bottom:4px;"><strong>Primary Risk:</strong> US trade-policy volatility and potential USMCA rule-of-origin changes.</p>
+        <p style="margin-bottom:0;"><strong>Mitigation:</strong> Geographic diversification across Chihuahua, Guadalajara and Guanajuato; active USMCA working-group engagement; tariff-scenario supply buffers.</p>
     </div>
     """, unsafe_allow_html=True)
 

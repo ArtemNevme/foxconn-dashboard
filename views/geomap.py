@@ -5,6 +5,7 @@ import streamlit as st
 import plotly.express as px
 from lib.theme import apply_plotly_theme
 from lib.components import section_header, insight_box, source_badge
+from lib.composite import compute_composite
 
 
 def render(filters, data):
@@ -21,8 +22,14 @@ def render(filters, data):
     latest = macro_df[macro_df["Year"] == latest_year].copy()
     latest["ISO"] = latest["Country"].map({"Mexico": "MEX", "Brazil": "BRA"})
 
-    metric = st.selectbox("Color metric", ["GDP_Growth_Pct", "Manufacturing_Pct_GDP", "GDP_Current_USD"],
-                          format_func=lambda x: {"GDP_Growth_Pct": "GDP Growth (%)",
+    # Inject composite score
+    comp = compute_composite()
+    score_map = {"Mexico": comp["mexico_score"], "Brazil": comp["brazil_score"]}
+    latest["Composite_Score"] = latest["Country"].map(score_map)
+
+    metric = st.selectbox("Color metric", ["Composite_Score", "GDP_Growth_Pct", "Manufacturing_Pct_GDP", "GDP_Current_USD"],
+                          format_func=lambda x: {"Composite_Score": "Composite Investment Score",
+                                                  "GDP_Growth_Pct": "GDP Growth (%)",
                                                   "Manufacturing_Pct_GDP": "Manufacturing % GDP",
                                                   "GDP_Current_USD": "GDP Current USD (Bn)"}[x],
                           key="map_metric")
@@ -36,7 +43,7 @@ def render(filters, data):
         color_continuous_scale="RdYlGn",
         range_color=(latest[metric].min() * 0.9, latest[metric].max() * 1.05),
         labels={metric: metric.replace("_", " ")},
-        title=f"{metric.replace('_', ' ')} ({latest_year})",
+        title=f"{metric.replace('_', ' ').replace('Composite Score', 'Composite Investment Score')} ({latest_year})",
     )
     fig.update_geos(
         scope="world",

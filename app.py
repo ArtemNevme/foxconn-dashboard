@@ -10,7 +10,7 @@ from lib.api_client import get_macro, get_forecast
 from lib.data_loader import load_all_curated
 from lib.theme import ACCENT, COUNTRY_COLORS
 
-from views import overview, governance, manufacturing, ev_semi, foxconn, forecast, geomap, recommendation
+from views import overview, governance, manufacturing, ev_semi, foxconn, forecast, geomap, recommendation, sources
 
 st.set_page_config(
     page_title="Foxconn BI Dashboard — Mexico vs Brazil",
@@ -207,6 +207,7 @@ def main():
         "7. Forecast",
         "8. Geo Map",
         "9. Recommendation",
+        "10. Sources",
     ])
 
     with tabs[0]:
@@ -227,6 +228,8 @@ def main():
         geomap.render(filters, data)
     with tabs[8]:
         recommendation.render(filters, data)
+    with tabs[9]:
+        sources.render(filters, data)
 
     # Footer
     st.divider()
