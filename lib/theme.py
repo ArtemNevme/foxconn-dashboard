@@ -28,26 +28,14 @@ PLOTLY_LAYOUT = {
         "font_family": "Inter, sans-serif",
         "borderwidth": 1,
     },
-    "xaxis": {
-        "showgrid": True,
-        "gridcolor": "#F0F0F0",
-        "linecolor": "#E2E8F0",
-        "tickfont": {"size": 12, "color": NEUTRAL},
-        "title": {"font": {"size": 12, "color": NEUTRAL}},
-    },
-    "yaxis": {
-        "showgrid": True,
-        "gridcolor": "#F0F0F0",
-        "linecolor": "#E2E8F0",
-        "tickfont": {"size": 12, "color": NEUTRAL},
-        "title": {"font": {"size": 12, "color": NEUTRAL}},
-    },
 }
 
 
 def apply_plotly_theme(fig):
-    """Apply unified layout + animation defaults to any Plotly figure."""
+    """Apply unified layout + styling defaults to any Plotly figure."""
     fig.update_layout(**PLOTLY_LAYOUT)
+    fig.update_xaxes(showgrid=True, gridcolor="#F0F0F0", linecolor="#E2E8F0", tickfont=dict(size=12, color=NEUTRAL))
+    fig.update_yaxes(showgrid=True, gridcolor="#F0F0F0", linecolor="#E2E8F0", tickfont=dict(size=12, color=NEUTRAL))
     fig.update_traces(
         selector=dict(type="bar"),
         textposition="outside",
