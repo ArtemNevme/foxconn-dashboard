@@ -19,7 +19,7 @@ PLOTLY_LAYOUT = {
     "font": {"family": "Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif", "color": ACCENT, "size": 13},
     "paper_bgcolor": "rgba(0,0,0,0)",
     "plot_bgcolor": "rgba(0,0,0,0)",
-    "margin": {"l": 45, "r": 25, "t": 50, "b": 45},
+    "margin": {"l": 45, "r": 25, "t": 50, "b": 65},
     "legend": {"orientation": "h", "yanchor": "bottom", "y": -0.18, "xanchor": "center", "x": 0.5, "bgcolor": "rgba(255,255,255,0.8)"},
     "hoverlabel": {
         "bgcolor": "#FFFFFF",
