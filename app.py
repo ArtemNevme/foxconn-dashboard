@@ -6,12 +6,12 @@ Entry point for Streamlit Community Cloud.
 import streamlit as st
 from datetime import datetime
 
-from lib.api_client import get_macro, get_forecast
+from lib.api_client import get_macro, get_forecast, get_latam_regional
 from lib.data_loader import load_all_curated
 from lib.theme import ACCENT, COUNTRY_COLORS
 from lib.assets import LOGO_PNG, FLAG_MX_PNG, FLAG_BR_PNG
 
-from views import overview, governance, manufacturing, ev_semi, foxconn, forecast, geomap, recommendation, sources
+from views import overview, governance, manufacturing, ev_semi, foxconn, forecast, geomap, footprint, recommendation, sources
 
 st.set_page_config(
     page_title="Foxconn BI Dashboard — Mexico vs Brazil",
@@ -191,11 +191,13 @@ def main():
     with st.spinner("Loading data sources..."):
         macro_df, macro_source = get_macro()
         forecast_df, forecast_source = get_forecast()
+        latam_df, latam_source = get_latam_regional()
         curated = load_all_curated()
 
     data = {
         "macro": (macro_df, macro_source),
         "forecast": (forecast_df, forecast_source),
+        "latam": (latam_df, latam_source),
         "cpi": curated["cpi"],
         "economic_freedom": curated["economic_freedom"],
         "wgi": curated["wgi"],
@@ -215,6 +217,7 @@ def main():
         "Foxconn Investment",
         "Forecast",
         "Geo Map",
+        "Foxconn Footprint",
         "Recommendation",
         "Sources",
     ])
@@ -236,8 +239,10 @@ def main():
     with tabs[7]:
         geomap.render(filters, data)
     with tabs[8]:
-        recommendation.render(filters, data)
+        footprint.render(filters, data)
     with tabs[9]:
+        recommendation.render(filters, data)
+    with tabs[10]:
         sources.render(filters, data)
 
     # Footer

@@ -22,6 +22,16 @@ WB_INDICATORS = {
 
 ISO3_TO_NAME = {"MEX": "Mexico", "BRA": "Brazil"}
 
+LATAM_COUNTRIES = "MEX;BRA;ARG;CHL;COL;PER;ECU;BOL;PRY;URY;VEN;CRI;PAN;GTM;HND;SLV;NIC;DOM"
+
+LATAM_ISO3_TO_NAME = {
+    "MEX": "Mexico", "BRA": "Brazil", "ARG": "Argentina", "CHL": "Chile",
+    "COL": "Colombia", "PER": "Peru", "ECU": "Ecuador", "BOL": "Bolivia",
+    "PRY": "Paraguay", "URY": "Uruguay", "VEN": "Venezuela", "CRI": "Costa Rica",
+    "PAN": "Panama", "GTM": "Guatemala", "HND": "Honduras", "SLV": "El Salvador",
+    "NIC": "Nicaragua", "DOM": "Dominican Republic",
+}
+
 
 def _save_snapshot(df: pd.DataFrame, name: str):
     SNAPSHOT_DIR.mkdir(parents=True, exist_ok=True)
@@ -56,6 +66,34 @@ def fetch_worldbank(indicator: str, countries: str = "MEX;BRA", start: int = 201
                 "Country": ISO3_TO_NAME.get(iso, iso),
                 "Year": int(year),
                 WB_INDICATORS[indicator]: float(val),
+            })
+    return pd.DataFrame(rows)
+
+
+@st.cache_data(ttl=86400)
+def fetch_worldbank_latam(indicator: str, countries: str = LATAM_COUNTRIES, start: int = 2020, end: int = 2024) -> pd.DataFrame:
+    url = (
+        f"https://api.worldbank.org/v2/country/{countries}/indicator/{indicator}"
+        f"?format=json&date={start}:{end}&per_page=500"
+    )
+    resp = requests.get(url, timeout=30)
+    resp.raise_for_status()
+    data = resp.json()
+    if not isinstance(data, list) or len(data) < 2:
+        raise ValueError("Unexpected World Bank response structure")
+    records = data[1]
+    rows = []
+    for r in records:
+        iso = r.get("countryiso3code")
+        year = r.get("date")
+        val = r.get("value")
+        if iso and year and val is not None:
+            rows.append({
+                "ISO": iso,
+                "Country": LATAM_ISO3_TO_NAME.get(iso, iso),
+                "Year": int(year),
+                "Indicator": indicator,
+                "Value": float(val),
             })
     return pd.DataFrame(rows)
 
@@ -140,4 +178,35 @@ def get_forecast() -> tuple[pd.DataFrame, str]:
         return merged, "LIVE"
     except Exception:
         df = _load_snapshot("imf_forecast")
+        return df, "SNAPSHOT"
+
+
+def get_latam_regional() -> tuple[pd.DataFrame, str]:
+    """
+    Fetch latest-year GDP growth and manufacturing % for 18 Latin American economies.
+    Returns (DataFrame with ISO, Country, GDP_Growth_Pct, Manufacturing_Pct_GDP, source_flag).
+    """
+    indicators = {
+        "NY.GDP.MKTP.KD.ZG": "GDP_Growth_Pct",
+        "NV.IND.MANF.ZS": "Manufacturing_Pct_GDP",
+    }
+    try:
+        dfs = []
+        for code, col in indicators.items():
+            df = fetch_worldbank_latam(code)
+            if not df.empty:
+                df = df.rename(columns={"Value": col})
+                dfs.append(df[["ISO", "Country", "Year", col]])
+        if not dfs:
+            raise ValueError("No LATAM data from API")
+        merged = dfs[0]
+        for d in dfs[1:]:
+            merged = merged.merge(d, on=["ISO", "Country", "Year"], how="outer")
+        # Keep latest year per country
+        latest = merged.sort_values("Year").groupby(["ISO", "Country"], as_index=False).last()
+        latest = latest[["ISO", "Country", "GDP_Growth_Pct", "Manufacturing_Pct_GDP"]]
+        _save_snapshot(latest, "latam_regional")
+        return latest, "LIVE"
+    except Exception:
+        df = _load_snapshot("latam_regional")
         return df, "SNAPSHOT"
