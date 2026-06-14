@@ -112,9 +112,9 @@ def render(filters, data):
         showframe=False,
         showcoastlines=True,
         coastlinecolor="#CBD5E1",
-        landcolor="#F4F6F8",
-        oceancolor="#FFFFFF",
-        lakecolor="#FFFFFF",
+        landcolor="#EAEFF3",
+        oceancolor="#D6E8F5",
+        lakecolor="#D6E8F5",
         showocean=True,
         visible=False,
         lonaxis_range=[-118, -86],
@@ -128,6 +128,7 @@ def render(filters, data):
     )
 
     fig.update_layout(
+        height=520,
         margin=dict(l=0, r=0, t=60, b=0),
         paper_bgcolor="rgba(0,0,0,0)",
         font=dict(family="Inter, Segoe UI, sans-serif", color=ACCENT),
@@ -149,7 +150,12 @@ def render(filters, data):
         lataxis_range=[14, 33],
     )
 
-    st.plotly_chart(fig, use_container_width=True, key="mexico_footprint_map")
+    st.plotly_chart(
+        fig,
+        use_container_width=True,
+        key="footprint_map",
+        config={"responsive": False, "scrollZoom": False},
+    )
 
     # Site details table
     st.markdown("#### Site Details")

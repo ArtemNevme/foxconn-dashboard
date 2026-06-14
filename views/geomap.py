@@ -77,6 +77,7 @@ def render(filters, data):
     )
 
     fig.update_layout(
+        height=520,
         margin=dict(l=0, r=0, t=60, b=0),
         paper_bgcolor="rgba(0,0,0,0)",
         font=dict(family="Inter, Segoe UI, sans-serif", color=ACCENT),
